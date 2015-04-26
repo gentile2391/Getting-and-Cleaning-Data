@@ -18,6 +18,7 @@ dim(joinLabel) # 10299*1
 joinSubject <- rbind(trainSubject, testSubject)
 dim(joinSubject) # 10299*1
 
+
 # Step2. Extracts only the measurements on the mean and standard 
 # deviation for each measurement. 
 features <- read.table("./data/features.txt")
@@ -31,6 +32,7 @@ names(joinData) <- gsub("mean", "Mean", names(joinData)) # capitalize M
 names(joinData) <- gsub("std", "Std", names(joinData)) # capitalize S
 names(joinData) <- gsub("-", "", names(joinData)) # remove "-" in column names 
 
+
 # Step3. Uses descriptive activity names to name the activities in 
 # the data set
 activity <- read.table("./data/activity_labels.txt")
@@ -41,12 +43,14 @@ activityLabel <- activity[joinLabel[, 1], 2]
 joinLabel[, 1] <- activityLabel
 names(joinLabel) <- "activity"
 
+
 # Step4. Appropriately labels the data set with descriptive activity 
 # names. 
 names(joinSubject) <- "subject"
 cleanedData <- cbind(joinSubject, joinLabel, joinData)
 dim(cleanedData) # 10299*68
 write.table(cleanedData, "merged_data.txt") # write out the 1st dataset
+
 
 # Step5. Creates a second, independent tidy data set with the average of 
 # each variable for each activity and each subject. 
@@ -69,6 +73,7 @@ for(i in 1:subjectLen) {
 }
 head(result)
 write.table(result, "data_with_means.txt") # write out the 2nd dataset
+
 
 # data <- read.table("./data_with_means.txt")
 # data[1:12, 1:3]
